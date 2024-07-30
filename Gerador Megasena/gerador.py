@@ -16,8 +16,11 @@ numeros = df[numeros_colunas].values.flatten()
 # Contar a frequência de cada número
 frequencias = Counter(numeros)
 
-# Ordenar os números pela frequência
-numeros_ordenados = [numero for numero, frequencia in frequencias.most_common()]
+# # Ordenar os números pela frequência
+# numeros_ordenados = [numero for numero, frequencia in frequencias.most_common()]
+
+# Ordenar os números pela frequência (do menos frequente para o mais frequente)
+numeros_ordenados = [numero for numero, frequencia in frequencias.most_common()][::-1]
 
 # Gerar três jogos de 9 números baseados nas frequências
 jogo_1 = sorted(numeros_ordenados[:9])
