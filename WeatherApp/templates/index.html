@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicativo de Clima</title>
+</head>
+<body>
+    <h1>Verifique o Clima</h1>
+    <form method="POST">
+        <input type="text" name="city" placeholder="Digite o nome da cidade" required>
+        <button type="submit">Buscar</button>
+    </form>
+
+    {% if weather %}
+        <h2>Clima em {{ weather.city }}</h2>
+        <p>Temperatura: {{ weather.temperature }}°C</p>
+        <p>Descrição: {{ weather.description }}</p>
+        <img src="http://openweathermap.org/img/wn/{{ weather.icon }}@2x.png" alt="Ícone do clima">
+    {% endif %}
+</body>
+</html>
