@@ -1,8 +1,11 @@
 import pandas as pd
 import random
+import os
+
+os.chdir('C:\Development\ProjetosPython\Gerador Lotofacil')
 
 # Carregar o arquivo CSV da Lotofácil com o separador correto
-df = pd.read_csv('d:\DevProjects\ProjetosPython\Gerador Lotofacil\lotofacil.csv', sep=';')
+df = pd.read_csv('lotofacil.csv', sep=';')
 
 # Verificar os nomes das colunas para confirmar
 print("Nomes das colunas:", df.columns)
