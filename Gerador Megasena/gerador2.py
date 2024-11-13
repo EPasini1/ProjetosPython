@@ -5,12 +5,14 @@ import random
 def carregar_numeros_mais_frequentes(arquivo_csv):
     frequencia_numeros = {}
     with open(arquivo_csv, mode='r') as file:
-        reader = csv.reader(file)
+        reader = csv.reader(file, delimiter=';')  # Usar ; como delimitador
         next(reader)  # Pular o cabeçalho
         for row in reader:
-            numero = int(row[0])
-            frequencia = int(row[1])
-            frequencia_numeros[numero] = frequencia
+            try:
+                numero = int(row[2])  # Assumindo que o número da Mega-Sena está na 3ª coluna
+                frequencia_numeros[numero] = frequencia_numeros.get(numero, 0) + 1
+            except ValueError:
+                print(f"Erro ao converter {row} para número. Verifique o formato.")
     return frequencia_numeros
 
 # Função para dividir a cartela em quadrantes
@@ -34,7 +36,7 @@ def gerar_jogo(frequencia_numeros):
     jogo.append(random.choice(quadrante_4))
 
     # Garantir a presença de números espaçados
-    while len(jogo) < 7:
+    while len(jogo) < 6:
         numero = random.randint(1, 60)
         # Evitar números consecutivos
         if not any(abs(numero - n) == 1 for n in jogo):
@@ -54,7 +56,7 @@ def gerar_jogo(frequencia_numeros):
     return sorted(jogo)
 
 # Função para gerar 10 jogos
-def gerar_jogos(frequencia_numeros, n=10):
+def gerar_jogos(frequencia_numeros, n=3):
     jogos = []
     for _ in range(n):
         jogo = gerar_jogo(frequencia_numeros)
@@ -62,7 +64,7 @@ def gerar_jogos(frequencia_numeros, n=10):
     return jogos
 
 # Carregar os números mais frequentes da Mega-Sena
-frequencia_numeros = carregar_numeros_mais_frequentes('D:\DevProjects\ProjetosPython\Gerador Megasena\mega_sena.csv')
+frequencia_numeros = carregar_numeros_mais_frequentes('D:\\DevProjects\\ProjetosPython\\Gerador Megasena\\mega_sena.csv')
 
 # Gerar 10 jogos
 jogos_gerados = gerar_jogos(frequencia_numeros)
