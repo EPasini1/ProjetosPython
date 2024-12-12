@@ -44,8 +44,8 @@ def gerar_jogo_equilibrado(quentes, frios, fibonacci, numeros_por_jogo):
 
     # Adicionar números aleatórios até completar a quantidade desejada
     restante = [x for x in range(1, 61) if x not in jogo]
-    if len(jogo) < numeros_por_jogo:
-        jogo.update(random.sample(restante, numeros_por_jogo - len(jogo)))
+    while len(jogo) < numeros_por_jogo:
+        jogo.add(random.choice(restante))
 
     # Garantir proporção de pares e ímpares (aproximadamente metade de cada)
     pares = [x for x in jogo if x % 2 == 0]
@@ -63,8 +63,13 @@ def gerar_jogo_equilibrado(quentes, frios, fibonacci, numeros_por_jogo):
         restante.remove(impar_extra)
         impares = [x for x in jogo if x % 2 != 0]
 
+    # Se ainda não está no tamanho certo, adicionar números aleatórios restantes
+    while len(jogo) > numeros_por_jogo:
+        jogo.pop()
+
     # Manter a quantidade desejada de números no jogo
     return sorted(jogo)
+
 
 # Função para criar jogos usando simulação de Monte Carlo
 def simulacao_monte_carlo(frequencias, quentes, frios, fibonacci, numeros_por_jogo, n_simulacoes=1000, n_jogos=6):
@@ -116,7 +121,7 @@ if __name__ == "__main__":
     
     # Configurações iniciais
     numeros_por_jogo = 7  # Quantidade de números em cada jogo
-    n_jogos = 10  # Quantidade de jogos a serem gerados
+    n_jogos = 6  # Quantidade de jogos a serem gerados
     
     jogos = gerar_jogos(df, numeros_por_jogo, n_jogos)
 
