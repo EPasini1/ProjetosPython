@@ -120,8 +120,8 @@ if __name__ == "__main__":
     df = ler_csv(arquivo)
     
     # Configurações iniciais
-    numeros_por_jogo = 7  # Quantidade de números em cada jogo
-    n_jogos = 6  # Quantidade de jogos a serem gerados
+    numeros_por_jogo = 6 # Quantidade de números em cada jogo
+    n_jogos = 3 # Quantidade de jogos a serem gerados
     
     jogos = gerar_jogos(df, numeros_por_jogo, n_jogos)
 
