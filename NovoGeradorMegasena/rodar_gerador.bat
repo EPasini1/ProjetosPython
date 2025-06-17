@@ -23,6 +23,14 @@ if not "%QTD_JOGOS%"=="" (
 )
 echo =============================================
 
+REM Verifica se o Python está disponível
+where python >nul 2>nul
+if errorlevel 1 (
+    echo Erro: Python não encontrado. Instale o Python e adicione ao PATH.
+    pause
+    exit /b 1
+)
+
 REM Verifica se o pip está disponível
 where pip >nul 2>nul
 if errorlevel 1 (
