@@ -319,10 +319,27 @@ if __name__ == "__main__":
     arquivo_csv = 'mega_sena.csv' # Nome do arquivo CSV
     df_resultados = ler_csv(arquivo_csv)
 
+    # Lê argumentos da linha de comando: [números_por_jogo] [quantidade_de_jogos]
+    # Exemplo de uso: python gerador.py 6 10
+    try:
+        if len(sys.argv) > 1:
+            numeros_do_jogo = int(sys.argv[1])
+        else:
+            numeros_do_jogo = NUMBERS_PER_MEGA_SENA_GAME
+        if len(sys.argv) > 2:
+            quantidade_de_jogos = int(sys.argv[2])
+        else:
+            quantidade_de_jogos = 3
+    except Exception as e:
+        print(f"Argumentos inválidos: {e}. Usando valores padrão.", file=sys.stderr)
+        numeros_do_jogo = NUMBERS_PER_MEGA_SENA_GAME
+        quantidade_de_jogos = 3
+
     if df_resultados is not None:
+        # Utiliza apenas os últimos 30 jogos como base
+        df_resultados = df_resultados.tail(30)
         # Configurações para esta execução específica
-        numeros_do_jogo = NUMBERS_PER_MEGA_SENA_GAME # Gera jogos de 6 números (padrão da Mega Sena)
-        quantidade_de_jogos = 3 # Gera 3 jogos
+        # numeros_do_jogo e quantidade_de_jogos já definidos acima
 
         jogos_gerados = gerar_jogos(df_resultados, numeros_do_jogo, quantidade_de_jogos)
 
